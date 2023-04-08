@@ -1,3 +1,7 @@
 APIPORT=
 JWTSECRET=
 SITENAME=
+# options = POSTGRES, MYSQL, SQLITE
+DB_ENGINE=
+# Name your database and store it in a db-data folder
+SQLITEDBNAME="./db-data/DBNAME"

@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
+	"github.com/simpleittools/assetapi/database"
 	"github.com/simpleittools/assetapi/routes"
 	"log"
 	"os"
@@ -18,6 +19,8 @@ func main() {
 	PORT := os.Getenv("APIPORT")
 
 	app := fiber.New()
+
+	database.Conn()
 	routes.APIRoutes(app)
 
 	app.Listen(PORT)
