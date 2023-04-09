@@ -1,7 +1,9 @@
 package helpers
 
 import (
+	"log"
 	"regexp"
+	"strconv"
 	"strings"
 )
 
@@ -24,4 +26,14 @@ func Slugify(name string) string {
 	slug = strings.Trim(slug, "-")
 
 	return slug
+}
+
+func UintConv(input string) uint {
+	str := input
+	num, err := strconv.ParseUint(str, 10, 32)
+	if err != nil {
+		log.Panic(err)
+	}
+	uintNum := uint(num)
+	return uintNum
 }

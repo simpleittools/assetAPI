@@ -7,7 +7,7 @@ import (
 	"github.com/simpleittools/assetapi/models"
 )
 
-func CreateClient(c *fiber.Ctx) error {
+func ClientCreate(c *fiber.Ctx) error {
 	var data map[string]string
 
 	err := c.BodyParser(&data)
