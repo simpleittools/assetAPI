@@ -69,7 +69,7 @@ func Conn() {
 			fmt.Println("connected to SQLITE")
 		}
 		DB = conn
-		conn.AutoMigrate(&models.User{}, &models.TransactionLog{})
+		conn.AutoMigrate(&models.User{}, &models.TransactionLog{}, &models.Contact{}, &models.Client{})
 	default:
 		panic("invalid database definition")
 	}

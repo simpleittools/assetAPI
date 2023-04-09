@@ -2,7 +2,7 @@ package models
 
 import "gorm.io/gorm"
 
-type Contacts struct {
+type Contact struct {
 	gorm.Model
 	FirstName string `json:"first_name,omitempty"`
 	LastName  string `json:"last_name,omitempty"`
@@ -10,6 +10,6 @@ type Contacts struct {
 	// todo: add foreign items
 	// client
 	// devices -m2m
-	// desk_phone
+	// phone
 	CellPhone string `json:"cell_phone" gorm:"null"`
 }
