@@ -38,6 +38,16 @@ func Conn() {
 		DB = conn
 		conn.AutoMigrate(&models.User{})
 	case "SQLITE":
+		dbName := os.Getenv("SQLITEDBNAME")
+		deleteDB := os.Getenv("DELETEDB")
+		if deleteDB == "TRUE" {
+			err := os.Remove(dbName)
+			if err != nil {
+				fmt.Println(err)
+				return
+			}
+		}
+
 		folderPath := "./db-data"
 		_, err := os.Stat(folderPath)
 		if os.IsNotExist(err) {
@@ -52,7 +62,7 @@ func Conn() {
 		} else {
 			fmt.Println("Database folder exists")
 		}
-		conn, err := gorm.Open(sqlite.Open(os.Getenv("SQLITEDBNAME")), &gorm.Config{})
+		conn, err := gorm.Open(sqlite.Open(dbName), &gorm.Config{})
 		if err != nil {
 			log.Fatal("Could not connect to the SQLITE DB")
 		} else {
