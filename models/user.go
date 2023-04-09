@@ -10,7 +10,6 @@ type User struct {
 	Username  string `json:"username" gorm:"unique"`
 	Password  []byte `json:"-"`
 	Active    bool   `json:"active" gorm:"default:true"`
-
 	//Token     Token     `json:"token"`
 	Transactions []TransactionLog
 }

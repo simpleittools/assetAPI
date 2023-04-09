@@ -19,9 +19,9 @@ type Creds struct {
 	Password string `json:"password"`
 }
 
+// LoginHandler will log a user in and create a transaction log entry
 func LoginHandler(c *fiber.Ctx) error {
 	var creds map[string]string
-
 	err := c.BodyParser(&creds)
 	if err != nil {
 		return err
@@ -31,17 +31,19 @@ func LoginHandler(c *fiber.Ctx) error {
 	loginFail := models.TransactionLog{
 		TransactionType: "Login Failed",
 		Username:        creds["username"],
-	}
-
-	// todo: create a transaction log envelope to store this information
-	loginSuccess := models.TransactionLog{
-		TransactionType: "Login Success",
-		Username:        creds["username"],
+		IPAddress:       c.IP(),
 	}
 
 	var user models.User
 	// Search the Database for the user by email
 	database.DB.Where("username = ?", creds["username"]).First(&user)
+
+	// todo: create a transaction log envelope to store this information
+	loginSuccess := models.TransactionLog{
+		TransactionType: "Login Success",
+		UserID:          user.ID,
+		IPAddress:       c.IP(),
+	}
 
 	// todo: change the message
 	if user.ID == 0 {
@@ -61,8 +63,6 @@ func LoginHandler(c *fiber.Ctx) error {
 	}
 
 	database.DB.Create(&loginSuccess)
-
-	// todo: replace with actual user data
 
 	// Create the JWT token
 	token := jwt.New(jwt.SigningMethodHS256)
@@ -91,6 +91,7 @@ func LoginHandler(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{"message": "success"})
 }
 
+// Register will register a user
 func Register(c *fiber.Ctx) error {
 	var data map[string]string
 

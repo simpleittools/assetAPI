@@ -7,6 +7,7 @@ import (
 	"strings"
 )
 
+// Slugify will convert any sequence of characters to a usable slug
 func Slugify(name string) string {
 	// Convert to lowercase
 	slug := strings.ToLower(name)
@@ -28,6 +29,7 @@ func Slugify(name string) string {
 	return slug
 }
 
+// UintConv will convert a string to an unsigned integer
 func UintConv(input string) uint {
 	str := input
 	num, err := strconv.ParseUint(str, 10, 32)

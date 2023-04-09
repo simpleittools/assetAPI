@@ -7,6 +7,7 @@ import (
 	"github.com/simpleittools/assetapi/models"
 )
 
+// ContactCreate will create a new Contact
 func ContactCreate(c *fiber.Ctx) error {
 	var data map[string]string
 

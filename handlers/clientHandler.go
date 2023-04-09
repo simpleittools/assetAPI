@@ -7,6 +7,7 @@ import (
 	"github.com/simpleittools/assetapi/models"
 )
 
+// ClientCreate will create a new client
 func ClientCreate(c *fiber.Ctx) error {
 	var data map[string]string
 
