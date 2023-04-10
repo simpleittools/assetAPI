@@ -11,7 +11,7 @@ The API is built with
 - Joho godotenv
 - dgrijalva/jwt-go
 
-Copy the .envsampe to .env and insert any needed variables
+Copy the .envsample to .env and insert any needed variables
 
 
 

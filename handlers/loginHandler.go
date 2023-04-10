@@ -80,7 +80,6 @@ func LoginHandler(c *fiber.Ctx) error {
 
 	// make the JWT a cookie
 	cookie := fiber.Cookie{
-		// todo: give the cookie a real name
 		Name:     os.Getenv("SITENAME"),
 		Value:    tokenString,
 		Expires:  time.Now().Add(time.Hour * 24),
@@ -119,5 +118,16 @@ func Register(c *fiber.Ctx) error {
 	}
 
 	database.DB.Create(&user)
+
+	// todo: the UserID is collecting the newly created userID. Need to set this to get the logged in userID
+	registerSuccess := models.TransactionLog{
+		TransactionType: "User Created",
+		UserID:          user.ID,
+		Username:        data["username"],
+		IPAddress:       c.IP(),
+	}
+
+	database.DB.Create(&registerSuccess)
+
 	return c.JSON(user)
 }
