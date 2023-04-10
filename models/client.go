@@ -11,9 +11,9 @@ type Client struct {
 	// todo: add foreign items
 	// devices
 	// phone
-	// contact
 	PrimaryEmail   string `json:"primary_email" gorm:"null"`
 	SecondaryEmail string `json:"secondary_email" gorm:"null"`
 	Active         bool   `json:"active" gorm:"default:true"`
 	Contacts       []Contact
+	Phones         []PhoneNumber
 }
