@@ -7,6 +7,7 @@ type TransactionLog struct {
 	UserID          uint      `json:"user_id" gorm:"null"`
 	Username        string    `json:"username" gorm:"null"`
 	TransactionType string    `json:"transaction_type" gorm:"not null"`
+	Name            string    `json:"name" gorm:"null"`
 	IPAddress       string    `json:"ip_address"`
 	TransactionTime time.Time `json:"transaction_time" gorm:"autoUpdateTime"`
 }

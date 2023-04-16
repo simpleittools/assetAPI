@@ -11,7 +11,7 @@ type Contact struct {
 	// todo: add foreign items
 	ClientID uint `json:"client_id"`
 	// devices -m2m
-	Phone []PhoneNumber
+	PhoneNumber string `json:"phone_number,omitempty" gorm:"null"`
 	// positional_email
 	CellPhone string `json:"cell_phone" gorm:"null"`
 }

@@ -12,6 +12,8 @@ func APIRoutes(app *fiber.App) {
 
 	app.Post("/login", handlers.LoginHandler)
 	app.Post("/register", handlers.Register)
-	app.Post("/client/create", handlers.ClientCreate)
-	app.Post("/contact/create", handlers.ContactCreate)
+	app.Post("/clients/create", handlers.ClientCreate)
+	app.Post("/contacts/create", handlers.ContactCreate)
+	app.Post("/devices/create", handlers.DeviceCreate)
+	app.Post("/devices/devicetypes/create", handlers.DeviceTypeCreate)
 }
