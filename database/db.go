@@ -26,7 +26,14 @@ func Conn() {
 			fmt.Println("connected to POSTGRES DB")
 		}
 		DB = conn
-		conn.AutoMigrate(&models.User{})
+		conn.AutoMigrate(
+			&models.User{},
+			&models.TransactionLog{},
+			&models.Contact{},
+			&models.Client{},
+			&models.Device{},
+			&models.DeviceType{},
+		)
 	case "MYSQL":
 		dsn = "user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
 		conn, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
@@ -36,7 +43,14 @@ func Conn() {
 			fmt.Println("connected to MYSQL")
 		}
 		DB = conn
-		conn.AutoMigrate(&models.User{})
+		conn.AutoMigrate(
+			&models.User{},
+			&models.TransactionLog{},
+			&models.Contact{},
+			&models.Client{},
+			&models.Device{},
+			&models.DeviceType{},
+		)
 	case "SQLITE":
 		dbName := os.Getenv("SQLITEDBNAME")
 		deleteDB := os.Getenv("DELETEDB")
