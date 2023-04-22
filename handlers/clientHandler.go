@@ -39,3 +39,43 @@ func ClientCreate(c *fiber.Ctx) error {
 	database.DB.Create(&client)
 	return c.JSON(client)
 }
+
+// ClientShow will return the results of a selected client
+func ClientShow(c *fiber.Ctx) error {
+	slug := c.Params("slug")
+	client := models.Client{}
+	err := database.DB.Find(&client, "slug", slug).Error
+	if err != nil {
+		return err
+	}
+	return c.JSON(client)
+}
+
+// ClientUpdate will PATCH the client details after edited by the user
+func ClientUpdate(c *fiber.Ctx) error {
+	slug := c.Params("slug")
+
+	var data models.Client
+
+	err := c.BodyParser(&data)
+	if err != nil {
+		return err
+	}
+
+	client := &models.Client{
+		ClientName:     data.ClientName,
+		Address:        data.Address,
+		Address2:       data.Address2,
+		Phone:          data.Phone,
+		PrimaryEmail:   data.PrimaryEmail,
+		SecondaryEmail: data.SecondaryEmail,
+		//Active:         data.Active,
+	}
+
+	err = database.DB.Model(&data).Where("slug = ?", slug).Updates(&client).Error
+	if err != nil {
+		return err
+	}
+
+	return c.JSON(client)
+}
