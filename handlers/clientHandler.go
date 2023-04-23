@@ -27,8 +27,10 @@ func ClientCreate(c *fiber.Ctx) error {
 		return err
 	}
 
+	slug := helpers.Slugify(data["client_name"])
+
 	client := models.Client{
-		Slug:           helpers.Slugify(data["client_name"]),
+		Slug:           slug,
 		ClientName:     data["client_name"],
 		Address:        data["address"],
 		Address2:       data["address_2"],
