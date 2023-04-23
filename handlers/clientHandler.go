@@ -32,6 +32,7 @@ func ClientCreate(c *fiber.Ctx) error {
 	client := models.Client{
 		Slug:           slug,
 		ClientName:     data["client_name"],
+		Phone:          data["phone"],
 		Address:        data["address"],
 		Address2:       data["address_2"],
 		PrimaryEmail:   data["primary_email"],
