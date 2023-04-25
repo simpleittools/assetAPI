@@ -65,6 +65,7 @@ func ClientUpdate(c *fiber.Ctx) error {
 		return err
 	}
 
+	// todo: the ClientActive variable will set as true, but never false
 	client := &models.Client{
 		ClientName:     data.ClientName,
 		Address:        data.Address,
@@ -72,7 +73,7 @@ func ClientUpdate(c *fiber.Ctx) error {
 		Phone:          data.Phone,
 		PrimaryEmail:   data.PrimaryEmail,
 		SecondaryEmail: data.SecondaryEmail,
-		//Active:         data.Active,
+		ClientActive:   data.ClientActive,
 	}
 
 	err = database.DB.Model(&data).Where("slug = ?", slug).Updates(&client).Error

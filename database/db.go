@@ -35,7 +35,7 @@ func Conn() {
 			&models.DeviceType{},
 		)
 	case "MYSQL":
-		dsn = "user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
+		dsn = "root:@tcp(127.0.0.1:3306)/assetmanagerdb?charset=utf8mb4&parseTime=True&loc=Local"
 		conn, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 		if err != nil {
 			log.Fatal("Could not connect to the MYSQL DB")
@@ -46,10 +46,10 @@ func Conn() {
 		conn.AutoMigrate(
 			&models.User{},
 			&models.TransactionLog{},
-			&models.Contact{},
+			//&models.Contact{},
 			&models.Client{},
-			&models.Device{},
-			&models.DeviceType{},
+			//&models.Device{},
+			//&models.DeviceType{},
 		)
 	case "SQLITE":
 		dbName := os.Getenv("SQLITEDBNAME")
