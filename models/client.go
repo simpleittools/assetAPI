@@ -11,8 +11,7 @@ type Client struct {
 	Phone          string `json:"phone" gorm:"null"`
 	PrimaryEmail   string `json:"primary_email" gorm:"null"`
 	SecondaryEmail string `json:"secondary_email" gorm:"null"`
-	// todo: the ClientActive variable will set to true, but never reverts to false
-	ClientActive bool `json:"client_active" gorm:"default:true"`
-	Contacts     []Contact
-	Devices      []Device
+	ClientActive   *bool  `json:"client_active" gorm:"default:false"`
+	Contacts       []Contact
+	Devices        []Device
 }

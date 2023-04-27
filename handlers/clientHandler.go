@@ -20,23 +20,27 @@ func ClientIndex(c *fiber.Ctx) error {
 
 // ClientCreate will create a new client
 func ClientCreate(c *fiber.Ctx) error {
-	var data map[string]string
+	//var data map[interface{}]string
+	//
+	//err := c.BodyParser(&data)
+	var data models.Client
 
 	err := c.BodyParser(&data)
 	if err != nil {
 		return err
 	}
 
-	slug := helpers.Slugify(data["client_name"])
+	slug := helpers.Slugify(data.ClientName)
 
 	client := models.Client{
 		Slug:           slug,
-		ClientName:     data["client_name"],
-		Phone:          data["phone"],
-		Address:        data["address"],
-		Address2:       data["address_2"],
-		PrimaryEmail:   data["primary_email"],
-		SecondaryEmail: data["secondary_email"],
+		ClientName:     data.ClientName,
+		Address:        data.Address,
+		Address2:       data.Address2,
+		Phone:          data.Phone,
+		PrimaryEmail:   data.PrimaryEmail,
+		SecondaryEmail: data.SecondaryEmail,
+		ClientActive:   data.ClientActive,
 	}
 
 	database.DB.Create(&client)
