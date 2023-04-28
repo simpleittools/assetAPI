@@ -17,8 +17,8 @@ func APIRoutes(app *fiber.App) {
 	client.Post("/create", handlers.ClientCreate)
 	client.Patch("/:slug", handlers.ClientUpdate)
 
-	app.Post("/login", handlers.LoginHandler)
-	app.Post("/register", handlers.Register)
+	app.Post("/api/login", handlers.LoginHandler)
+	app.Post("/api/register", handlers.Register)
 
 	app.Post("/contacts/create", handlers.ContactCreate)
 	app.Post("/devices/create", handlers.DeviceCreate)

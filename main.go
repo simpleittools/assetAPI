@@ -15,7 +15,7 @@ func main() {
 	// Load the environment variables
 	err := godotenv.Load()
 	if err != nil {
-		log.Panicln("cannot find .env file. Please create the .env file")
+		log.Fatal("cannot find .env file. Please create the .env file")
 	}
 	status := os.Getenv("STATUS")
 
@@ -43,5 +43,8 @@ func main() {
 
 	routes.APIRoutes(app)
 
-	app.Listen(PORT)
+	err = app.Listen(PORT)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
