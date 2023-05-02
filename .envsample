@@ -1,10 +1,10 @@
 STATUS=
-APIPORT=
+APIPORT=:3000
 JWTSECRET=
 SITENAME=
 # options = POSTGRES, MYSQL, SQLITE
 DB_ENGINE=
-# Set DELETEDGB to TRUE if you want the database deleted when you restart the application (development only)
+# Set DELETEDB to TRUE if you want the database deleted when you restart the application (development only)
 DELETEDB=
 # Name your database and store it in a db-data folder
 SQLITEDBNAME="./db-data/DBNAME"
