@@ -1,40 +1,38 @@
 package handlers
 
 import (
+	"github.com/go-faker/faker/v4"
 	"github.com/simpleittools/assetapi/database"
 	"github.com/simpleittools/assetapi/models"
-	"golang.org/x/crypto/bcrypt"
 )
 
 func Seed() error {
-	for _, userSeed := range database.UserSeed {
-		hashedPassword, err := bcrypt.GenerateFromPassword(userSeed.Password, 12)
-		if err != nil {
-			return err
-		}
+	iteration := 10
+
+	for i := 0; i < iteration; i++ {
 
 		user := models.User{
-			Email:     userSeed.Email,
-			FirstName: userSeed.FirstName,
-			LastName:  userSeed.LastName,
-			Username:  userSeed.Username,
-			Password:  hashedPassword,
+			Email:     faker.Email(),
+			FirstName: faker.FirstName(),
+			LastName:  faker.LastName(),
+			Username:  faker.Username(),
+			Password:  []byte("password"),
 		}
 
-		if err = database.DB.Create(&user).Error; err != nil {
+		if err := database.DB.Create(&user).Error; err != nil {
 			return err
 		}
 	}
 
-	for _, clientSeed := range database.ClientSeed {
+	for i := 0; i < iteration; i++ {
 		client := models.Client{
-			Slug:           clientSeed.Slug,
-			ClientName:     clientSeed.ClientName,
-			Address:        clientSeed.Address,
-			Address2:       clientSeed.Address2,
-			Phone:          clientSeed.Phone,
-			PrimaryEmail:   clientSeed.PrimaryEmail,
-			SecondaryEmail: clientSeed.SecondaryEmail,
+			Slug:           faker.Username(),
+			ClientName:     faker.Name(),
+			Address:        "123 Fake Street",
+			Address2:       "unit 531",
+			Phone:          faker.Phonenumber(),
+			PrimaryEmail:   faker.Email(),
+			SecondaryEmail: faker.Email(),
 		}
 		if err := database.DB.Create(&client).Error; err != nil {
 			return err
