@@ -20,9 +20,26 @@ func Seed() error {
 			Username:  userSeed.Username,
 			Password:  hashedPassword,
 		}
+
 		if err = database.DB.Create(&user).Error; err != nil {
 			return err
 		}
+	}
+
+	for _, clientSeed := range database.ClientSeed {
+		client := models.Client{
+			Slug:           clientSeed.Slug,
+			ClientName:     clientSeed.ClientName,
+			Address:        clientSeed.Address,
+			Address2:       clientSeed.Address2,
+			Phone:          clientSeed.Phone,
+			PrimaryEmail:   clientSeed.PrimaryEmail,
+			SecondaryEmail: clientSeed.SecondaryEmail,
+		}
+		if err := database.DB.Create(&client).Error; err != nil {
+			return err
+		}
+
 	}
 	return nil
 }

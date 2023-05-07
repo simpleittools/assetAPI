@@ -33,6 +33,7 @@ func main() {
 	app := fiber.New()
 
 	database.Conn()
+
 	seedDb := os.Getenv("SEEDDB")
 	switch seedDb {
 	case "TRUE":
