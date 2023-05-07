@@ -48,8 +48,8 @@ func Conn() {
 			&models.TransactionLog{},
 			//&models.Contact{},
 			&models.Client{},
-			//&models.Device{},
-			//&models.DeviceType{},
+			&models.Device{},
+			&models.DeviceType{},
 		)
 	case "SQLITE":
 		dbName := os.Getenv("SQLITEDBNAME")

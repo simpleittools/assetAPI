@@ -22,13 +22,13 @@ func DeviceTypeCreate(c *fiber.Ctx) error {
 
 	database.DB.Create(&deviceType)
 
-	deviceTypeCreateSuccess := models.TransactionLog{
-		TransactionType: "Device Type Created",
-		Name:            data["device_type"],
-		// todo: get the logged in user
-		//UserID:          user.ID,
-		IPAddress: c.IP(),
-	}
-	database.DB.Create(&deviceTypeCreateSuccess)
+	//deviceTypeCreateSuccess := models.TransactionLog{
+	//TransactionType: "Device Type Created",
+	//Name:            data["device_type"],
+	// todo: get the logged in user
+	//UserID:          user.ID,
+	//IPAddress: c.IP(),
+	//}
+	//database.DB.Create(&deviceTypeCreateSuccess)
 	return c.JSON(deviceType)
 }
