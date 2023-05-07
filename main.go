@@ -6,6 +6,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/joho/godotenv"
 	"github.com/simpleittools/assetapi/database"
+	"github.com/simpleittools/assetapi/handlers"
 	"github.com/simpleittools/assetapi/routes"
 	"log"
 	"os"
@@ -32,10 +33,16 @@ func main() {
 	app := fiber.New()
 
 	database.Conn()
-	//seedDb := true
-	//if seedDb == true {
-	//	handlers.Seed(),
-	//}
+	seedDb := os.Getenv("SEEDDB")
+	switch seedDb {
+	case "TRUE":
+		handlers.Seed()
+	case "FAlSE":
+		fmt.Println("You are not seeding the DB")
+	default:
+		log.Fatal("unable to determine seeding")
+
+	}
 
 	app.Use(cors.New(cors.Config{
 		AllowCredentials: true,

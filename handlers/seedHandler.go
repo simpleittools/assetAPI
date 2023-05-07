@@ -4,10 +4,9 @@ import (
 	"github.com/simpleittools/assetapi/database"
 	"github.com/simpleittools/assetapi/models"
 	"golang.org/x/crypto/bcrypt"
-	"gorm.io/gorm"
 )
 
-func Seed(db *gorm.DB) error {
+func Seed() error {
 	for _, userSeed := range database.UserSeed {
 		hashedPassword, err := bcrypt.GenerateFromPassword(userSeed.Password, 12)
 		if err != nil {
@@ -15,7 +14,7 @@ func Seed(db *gorm.DB) error {
 		}
 
 		user := models.User{
-			Email:     userSeed.Username,
+			Email:     userSeed.Email,
 			FirstName: userSeed.FirstName,
 			LastName:  userSeed.LastName,
 			Username:  userSeed.Username,

@@ -10,4 +10,11 @@ var UserSeed = []models.User{
 		Username:  "ryan",
 		Password:  []byte("password"),
 	},
+	{
+		Email:     "joe@joe.com",
+		FirstName: "Joe",
+		LastName:  "Logan",
+		Username:  "joe",
+		Password:  []byte("password"),
+	},
 }

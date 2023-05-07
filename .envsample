@@ -6,5 +6,7 @@ SITENAME=
 DB_ENGINE=
 # Set DELETEDB to TRUE if you want the database deleted when you restart the application (development only)
 DELETEDB=
+# Set SEEDDB to TRUE if you want to use the database seeder or FALSE to not seed the database
+SEEDDB=
 # Name your database and store it in a db-data folder
 SQLITEDBNAME="./db-data/DBNAME"
