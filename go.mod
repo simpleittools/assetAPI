@@ -4,6 +4,7 @@ go 1.20
 
 require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/go-faker/faker/v4 v4.1.0
 	github.com/gofiber/fiber/v2 v2.44.0
 	github.com/joho/godotenv v1.5.1
 	golang.org/x/crypto v0.7.0
@@ -15,7 +16,6 @@ require (
 
 require (
 	github.com/andybalholm/brotli v1.0.5 // indirect
-	github.com/go-faker/faker/v4 v4.1.0 // indirect
 	github.com/go-sql-driver/mysql v1.7.0 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect

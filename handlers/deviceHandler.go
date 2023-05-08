@@ -53,3 +53,13 @@ func DeviceCreate(c *fiber.Ctx) error {
 	//database.DB.Create(&deviceCreateSuccess)
 	return c.JSON(device)
 }
+
+func DeviceShow(c *fiber.Ctx) error {
+	slug := c.Params("slug")
+	device := models.Device{}
+	err := database.DB.Find(&device, "slug", slug).Error
+	if err != nil {
+		return err
+	}
+	return c.JSON(device)
+}

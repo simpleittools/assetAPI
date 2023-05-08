@@ -19,11 +19,13 @@ func APIRoutes(app *fiber.App) {
 
 	device := app.Group("api/devices")
 	device.Get("/", handlers.DeviceIndex)
+	device.Get("/:slug", handlers.DeviceShow)
+	device.Post("/devices/create", handlers.DeviceCreate)
 
 	app.Post("/api/login", handlers.LoginHandler)
 	app.Post("/api/register", handlers.Register)
 
 	app.Post("/contacts/create", handlers.ContactCreate)
-	app.Post("/devices/create", handlers.DeviceCreate)
+
 	app.Post("/devices/devicetypes/create", handlers.DeviceTypeCreate)
 }
