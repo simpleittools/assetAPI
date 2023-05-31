@@ -87,3 +87,23 @@ func ClientUpdate(c *fiber.Ctx) error {
 
 	return c.JSON(client)
 }
+
+func ClientSoftDelete(c *fiber.Ctx) error {
+	slug := c.Params("slug")
+
+	var data models.Client
+
+	database.DB.Model(&data).Where("slug = ?", slug).Delete(&slug)
+
+	return c.JSON(slug)
+}
+
+func ClientHardDelete(c *fiber.Ctx) error {
+	slug := c.Params("slug")
+
+	var data models.Client
+
+	database.DB.Unscoped().Model(&data).Where("slug = ?", slug).Delete(&slug)
+
+	return c.JSON(slug)
+}

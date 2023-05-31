@@ -16,6 +16,8 @@ func APIRoutes(app *fiber.App) {
 	client.Get("/:slug", handlers.ClientShow)
 	client.Post("/create", handlers.ClientCreate)
 	client.Patch("/:slug", handlers.ClientUpdate)
+	client.Delete("/:slug", handlers.ClientSoftDelete)
+	client.Delete("/permanent/:slug", handlers.ClientHardDelete)
 
 	device := app.Group("api/devices")
 	device.Get("/", handlers.DeviceIndex)
