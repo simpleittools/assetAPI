@@ -5,6 +5,7 @@ import (
 	"github.com/simpleittools/assetapi/database"
 	"github.com/simpleittools/assetapi/helpers"
 	"github.com/simpleittools/assetapi/models"
+	"gorm.io/gorm/clause"
 )
 
 // ClientIndex will show all registered clients
@@ -51,7 +52,7 @@ func ClientCreate(c *fiber.Ctx) error {
 func ClientShow(c *fiber.Ctx) error {
 	slug := c.Params("slug")
 	client := models.Client{}
-	err := database.DB.Find(&client, "slug", slug).Error
+	err := database.DB.Preload("Devices").Preload(clause.Associations).Find(&client, "slug", slug).Error
 	if err != nil {
 		return err
 	}
@@ -88,6 +89,7 @@ func ClientUpdate(c *fiber.Ctx) error {
 	return c.JSON(client)
 }
 
+// ClientSoftDelete will set the deleted_at entry in the database. This will prevent the database from returning these items on a default look-up
 func ClientSoftDelete(c *fiber.Ctx) error {
 	slug := c.Params("slug")
 
@@ -98,6 +100,7 @@ func ClientSoftDelete(c *fiber.Ctx) error {
 	return c.JSON(slug)
 }
 
+// ClientHardDelete will permanently delete entries
 func ClientHardDelete(c *fiber.Ctx) error {
 	slug := c.Params("slug")
 

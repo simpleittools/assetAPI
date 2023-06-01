@@ -15,5 +15,5 @@ type Client struct {
 	SecondaryEmail string `json:"secondary_email" gorm:"null"`
 	ClientActive   *bool  `json:"client_active" gorm:"default:true"`
 	Contacts       []Contact
-	Devices        []Device
+	Devices        []Device `json:"devices"`
 }

@@ -13,6 +13,6 @@ type Device struct {
 	Client       Client     `json:"client"`
 	DeviceTypeID uint       `json:"device_type_id"`
 	DeviceType   DeviceType `json:"device_type"`
-	Active       bool       `json:"active" gorm:"default:true"`
-	IsLoaner     bool       `json:"is_loaner" gorm:"default:false"`
+	Active       *bool      `json:"active" gorm:"default:true"`
+	IsLoaner     *bool      `json:"is_loaner" gorm:"default:false"`
 }

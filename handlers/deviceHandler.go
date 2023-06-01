@@ -21,7 +21,7 @@ func DeviceIndex(c *fiber.Ctx) error {
 
 // DeviceCreate will create a new client
 func DeviceCreate(c *fiber.Ctx) error {
-	var data map[string]string
+	var data models.Device
 
 	err := c.BodyParser(&data)
 	if err != nil {
@@ -29,16 +29,15 @@ func DeviceCreate(c *fiber.Ctx) error {
 	}
 
 	device := models.Device{
-		Slug:         helpers.Slugify(data["device_name"] + "-" + data["serial_number"]),
-		DeviceName:   data["device_name"],
-		SerialNumber: data["serial_number"],
-		Make:         data["make"],
-		DeviceModel:  data["device_model"],
-		ClientID:     helpers.UintConv(data["client_id"]),
-		DeviceTypeID: helpers.UintConv(data["device_type_id"]),
-		// todo fix the Active and IsLoaner from the static assignments
-		Active:   true,
-		IsLoaner: false,
+		Slug:         helpers.Slugify(data.DeviceName + "-" + data.SerialNumber),
+		DeviceName:   data.DeviceName,
+		SerialNumber: data.SerialNumber,
+		Make:         data.Make,
+		DeviceModel:  data.DeviceModel,
+		ClientID:     data.ClientID,
+		DeviceTypeID: data.DeviceTypeID,
+		Active:       data.Active,
+		IsLoaner:     data.IsLoaner,
 	}
 
 	database.DB.Create(&device)
@@ -57,9 +56,61 @@ func DeviceCreate(c *fiber.Ctx) error {
 func DeviceShow(c *fiber.Ctx) error {
 	slug := c.Params("slug")
 	device := models.Device{}
-	err := database.DB.Find(&device, "slug", slug).Error
+	err := database.DB.Find(&device, "slug", slug).Joins("Clients").Error
 	if err != nil {
 		return err
 	}
 	return c.JSON(device)
+}
+
+// DeviceUpdate will PATCH the device details after edited by the user
+func DeviceUpdate(c *fiber.Ctx) error {
+	slug := c.Params("slug")
+
+	var data models.Device
+
+	err := c.BodyParser(&data)
+	if err != nil {
+		return err
+	}
+
+	device := &models.Device{
+		DeviceName:   data.DeviceName,
+		SerialNumber: data.SerialNumber,
+		Make:         data.Make,
+		DeviceModel:  data.DeviceModel,
+		ClientID:     data.ClientID,
+		DeviceTypeID: data.DeviceTypeID,
+		Active:       data.Active,
+		IsLoaner:     data.IsLoaner,
+	}
+
+	err = database.DB.Model(&data).Where("slug = ?", slug).Updates(&device).Error
+	if err != nil {
+		return err
+	}
+
+	return c.JSON(device)
+}
+
+// DeviceSoftDelete will set the deleted_at entry in the database. This will prevent the database from returning these items on a default look-up
+func DeviceSoftDelete(c *fiber.Ctx) error {
+	slug := c.Params("slug")
+
+	var data models.Device
+
+	database.DB.Model(&data).Where("slug = ?", slug).Delete(&slug)
+
+	return c.JSON(slug)
+}
+
+// DeviceHardDelete will permanently delete entries
+func DeviceHardDelete(c *fiber.Ctx) error {
+	slug := c.Params("slug")
+
+	var data models.Device
+
+	database.DB.Unscoped().Model(&data).Where("slug = ?", slug).Delete(&slug)
+
+	return c.JSON(slug)
 }

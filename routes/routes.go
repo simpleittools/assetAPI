@@ -17,6 +17,7 @@ func APIRoutes(app *fiber.App) {
 	client.Post("/create", handlers.ClientCreate)
 	client.Patch("/:slug", handlers.ClientUpdate)
 	client.Delete("/:slug", handlers.ClientSoftDelete)
+	// limit access to the ClientHardDelete to specific users
 	client.Delete("/permanent/:slug", handlers.ClientHardDelete)
 
 	device := app.Group("api/devices")
