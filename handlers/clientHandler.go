@@ -52,7 +52,8 @@ func ClientCreate(c *fiber.Ctx) error {
 func ClientShow(c *fiber.Ctx) error {
 	slug := c.Params("slug")
 	client := models.Client{}
-	err := database.DB.Preload("Devices").Preload(clause.Associations).Find(&client, "slug", slug).Error
+	err := database.DB.Preload(clause.Associations).Where("slug =?", slug).Find(&client).Error
+
 	if err != nil {
 		return err
 	}

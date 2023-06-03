@@ -5,6 +5,7 @@ import (
 	"github.com/simpleittools/assetapi/database"
 	"github.com/simpleittools/assetapi/helpers"
 	"github.com/simpleittools/assetapi/models"
+	"gorm.io/gorm/clause"
 )
 
 // DeviceIndex will list all Devices
@@ -56,7 +57,7 @@ func DeviceCreate(c *fiber.Ctx) error {
 func DeviceShow(c *fiber.Ctx) error {
 	slug := c.Params("slug")
 	device := models.Device{}
-	err := database.DB.Find(&device, "slug", slug).Joins("Clients").Error
+	err := database.DB.Preload(clause.Associations).Where("slug = ?", slug).Find(&device).Error
 	if err != nil {
 		return err
 	}
