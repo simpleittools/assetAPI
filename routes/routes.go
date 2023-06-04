@@ -24,11 +24,15 @@ func APIRoutes(app *fiber.App) {
 	device.Get("/", handlers.DeviceIndex)
 	device.Get("/:slug", handlers.DeviceShow)
 	device.Post("/create", handlers.DeviceCreate)
+	device.Patch("/:slug", handlers.DeviceUpdate)
+	device.Delete("/:slug", handlers.DeviceSoftDelete)
+	// TODO: limit access to the DeviceHardDelete to specific users
+	device.Delete("/permanent/:slug", handlers.DeviceHardDelete)
+	device.Post("/devicetypes/create", handlers.DeviceTypeCreate)
 
 	app.Post("/api/login", handlers.LoginHandler)
 	app.Post("/api/register", handlers.Register)
 
 	app.Post("/contacts/create", handlers.ContactCreate)
 
-	app.Post("/devices/devicetypes/create", handlers.DeviceTypeCreate)
 }

@@ -71,7 +71,6 @@ func ClientUpdate(c *fiber.Ctx) error {
 		return err
 	}
 
-	// todo: the ClientActive variable will set as true, but never false
 	client := &models.Client{
 		ClientName:     data.ClientName,
 		Address:        data.Address,
