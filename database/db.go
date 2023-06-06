@@ -90,6 +90,7 @@ func Conn() {
 			&models.Client{},
 			&models.Device{},
 			&models.DeviceType{},
+			&models.DevicePropertyType{},
 		)
 	default:
 		panic("invalid database definition")

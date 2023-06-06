@@ -12,7 +12,11 @@ import (
 func ClientIndex(c *fiber.Ctx) error {
 	var clients []models.Client
 
-	database.DB.Find(&clients)
+	err := database.DB.Find(&clients).Error
+
+	if err != nil {
+		return err
+	}
 	//database.DB.Where("active = true").Find(&clients)
 	//database.DB.Preload(clause.Associations).Where("is_active = 1").Find(&clients)
 

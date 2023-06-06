@@ -28,7 +28,14 @@ func APIRoutes(app *fiber.App) {
 	device.Delete("/:slug", handlers.DeviceSoftDelete)
 	// TODO: limit access to the DeviceHardDelete to specific users
 	device.Delete("/permanent/:slug", handlers.DeviceHardDelete)
-	device.Post("/devicetypes/create", handlers.DeviceTypeCreate)
+
+	deviceType := app.Group("api/devicetypes")
+	deviceType.Get("/", handlers.DeviceTypeIndex)
+	deviceType.Post("/create", handlers.DeviceTypeCreate)
+	deviceType.Patch("/:slug", handlers.DeviceTypeUpdate)
+	// TODO: don't expose the delete endpoints yet. Want to decide if I should cascade the deletion or if I want to prevent it if items exist
+	//deviceType.Post("/:slug", handlers.DeviceTypeSoftDelete)
+	//deviceType.Delete("/permanent/:slug", handlers.DeviceTypeHardDelete)
 
 	app.Post("/api/login", handlers.LoginHandler)
 	app.Post("/api/register", handlers.Register)
