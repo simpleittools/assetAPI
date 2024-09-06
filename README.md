@@ -14,7 +14,7 @@ The API is built with
 Copy the .envsample to .env and insert any needed variables
 
 ## Seeding the Database
-To seed the database, you will need to fill out the databse/seeds.go file with the information to seed users matching the model.users file
+To seed the database, you will need to fill out the handlers/seedHandler.go file with the information to seed users matching the model.users file
 
 
 
